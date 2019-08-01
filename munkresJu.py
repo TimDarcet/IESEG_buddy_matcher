@@ -22,30 +22,6 @@ def n_inv(r1, r2):
             n += bool((r1[i] < r1[j]) ^ (r2[i] < r2[j]))
     return n
 
-freqs = {'Once a month' : 1,
-         'Twice a month' : 2,
-         'Once a week' : 4,
-         'Twice a week or more' : 9}
-
-favLangs = {"A language you are learning": 1,
-            "A language you are fluent in": 0}
-
-coefs = {'Q8':2,
-         'Q9':1,
-         'shareFavLang':5,
-         'sharedLang':1000,
-         'semiFavLang':5,       
-         'formerUni':3,
-         'futureUni':3,
-         'interestedInCulture':3,
-         'Q20':4,
-         'Q21':1,
-         'Q22':1,
-         'Q23':1,
-         'Q24':1,
-         'clone': 500
-        }
-
 repeat = {"Yes": True, "No": False}
 
 def transformDiffCost(criterion, frRow, exRow):
