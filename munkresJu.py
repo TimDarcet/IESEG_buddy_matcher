@@ -160,48 +160,54 @@ def totalCost(criterias, frRow, exRow):
             cost += costFuncs[criterion["type"]](criterion, frRow, exRow)
     return cost
 
+def prepare(answers, doClone=False, cloneLabel=None):
+    # Drop title indexes
+    answers = answers.drop(index=[0, 1])
+    answers = answers.reset_index(drop=True)
+
+    # Ad-hoc solution so that the imputer does not drop the empty columns
+    problemColumns = ["RecipientLastName",
+        "RecipientFirstName",
+        "RecipientEmail",
+        "ExternalReference"]
+    for col in problemColumns:
+        answers[col][0] = 0
+    # Impute missing values
+    imp = SimpleImputer(strategy="most_frequent")
+    tmp = imp.fit_transform(answers)
+    answers = pd.DataFrame(tmp, columns=answers.columns)
+    
+    # Clone the frenchies who accept to take two exchange partners
+    if doClone:
+        clones = answers.copy(deep=True)[answers[cloneLabel].map(repeat.get)]
+        answers['clone'] = False
+        clones['clone'] = True
+        answers[cloneLabel] = False
+        clones[cloneLabel] = False
+        answers = pd.concat([answers, clones])
+        answers = answers.reset_index(drop=True)
+
+    return answers
+
 
 with open('config.json', 'r') as conf_file:
-    criterias = json.load(conf_file)
+    config = json.load(conf_file)
+criterias = config['criterias']
 
 # import data
 fr = pd.read_csv("./data/french.csv")
 ex = pd.read_csv("./data/exchange.csv")
 
-# Drop irrelevant columns
-columnsToDrop = list(filter(lambda x: x[0] != 'Q', fr.columns)) + ['Q{}'.format(i) for i in range(3, 7)]
-frAnswers = fr.drop(columns=columnsToDrop)
-exAnswers = ex.drop(columns=columnsToDrop)
-
-# Drop title indexes
-frAnswers = frAnswers.drop(index=[0, 1])
-exAnswers = exAnswers.drop(index=[0, 1])
-
-# Impute missing values
-imp = SimpleImputer(strategy="most_frequent")
-frAnswers = pd.DataFrame(imp.fit_transform(frAnswers), columns=frAnswers.columns)
-exAnswers = pd.DataFrame(imp.fit_transform(exAnswers), columns=exAnswers.columns)
-
-
-# Clone the frenchies who accept to take two exchange partners
-frAnswers.Q7 = frAnswers.Q7.map(repeat.get)
-frAnswers['clone'] = False
-fraClones = frAnswers.copy(deep=True)[frAnswers['Q7']]
-fraClones['clone'] = True
-frAnswers = pd.concat([frAnswers, fraClones])
-frAnswers = frAnswers.reset_index(drop=True)
-
+frAnswers = prepare(fr, doClone=True, cloneLabel=config['two_buddies_question_label'])
+exAnswers = prepare(ex)
 
 # Compute the costs 
-costMatrix = [[float('inf')] * len(exAnswers.index) for _ in range(len(frAnswers.index))] 
- 
-
+costMatrix = [[float('inf')] * len(exAnswers.index) for _ in range(len(frAnswers.index))]
 for fridx, fr_row in frAnswers.iterrows():
     for exidx, ex_row in exAnswers.iterrows():
         # Compute a list of compatibility scores
         # Scores are normalized between 0 and 1
         costMatrix[fridx][exidx] = totalCost(criterias, fr_row, ex_row)
-
 
 # Solve the assignment problem using munkres
 m = Munkres()
