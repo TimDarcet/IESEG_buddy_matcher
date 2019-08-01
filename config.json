@@ -1,5 +1,10 @@
 {
     "two_buddies_question_label": "Q7",
+    "fluentQ":"Q10",
+    "learningQ":"Q11",
+    "firstNameQ":"Q1",
+    "lastNameQ":"Q2",
+    "eMailQ":"Q2",
     "criterias": {
         "Q8": {
             "type": "transform_diff",
@@ -135,5 +140,9 @@
             "QLabel":"clone",
             "who":"fr"
         }
+    },
+    "mails": {
+        "English": "Hello {frFName} and {exFName}",
+        "French": "Salut {frFName} et {exFName}"
     }
 }
