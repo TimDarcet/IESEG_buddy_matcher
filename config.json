@@ -4,7 +4,7 @@
     "learningQ":"Q11",
     "firstNameQ":"Q1",
     "lastNameQ":"Q2",
-    "eMailQ":"Q2",
+    "eMailQ":"Q3",
     "criterias": {
         "Q8": {
             "type": "transform_diff",
