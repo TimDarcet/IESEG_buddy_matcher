@@ -13,7 +13,7 @@ The csv files are to be placed in ./data.
 def compatPercentage(n):
     if n >= 500:
         n -= 500
-    return '{:2.2f}%'.format(100 * (1 - n / 30))
+    return '{:2.2f}%'.format(100 * max(0, 1 - n / 25))
 
 def n_inv(r1, r2):
     """ Calculates the Kendall-tau distance between two rankings,
@@ -219,3 +219,32 @@ for fridx, exidx in assignments:
           '<3',
           exAnswers['Q1'][exidx], exAnswers['Q2'][exidx],
           compatPercentage(costMatrix[fridx][exidx]))
+
+
+# Output remaining unmatched people
+frMatched, exMatched = zip(*assignments)
+frAnswers[~frAnswers.index.isin(frMatched)].to_csv("./output/remainingFr.csv")
+exAnswers[~exAnswers.index.isin(exMatched)].to_csv("./output/remainingEx.csv")
+
+# Outputing matchings
+matchings = pd.DataFrame(columns=["frFName", "frLName", "frEMail", "exFName", "exLName", "exEMail", "language"])
+for fridx, exidx in assignments:
+    fQ, lQ = config["fluentQ"], config["learningQ"]
+    fnQ, lnQ, emQ = config["firstNameQ"], config["lastNameQ"], config["eMailQ"]
+    frRow = frAnswers.iloc[fridx]
+    exRow = exAnswers.iloc[exidx]
+    commonLangs = set(frRow[fQ].split(',')).intersection(set(exRow[fQ].split(',')))
+    for lang in config["mails"]:
+        if lang in commonLangs:
+            chosenLang = lang
+    else:
+        chosenLang = "English"
+    matchings.append([frRow[fnQ],
+                      frRow[lnQ],
+                      frRow[emQ],
+                      exRow[fnQ],
+                      exRow[lnQ],
+                      exRow[emQ],
+                      chosenLang])
+
+matchings.to_csv("./output/matchings.csv")
