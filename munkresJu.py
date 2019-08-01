@@ -239,12 +239,13 @@ for fridx, exidx in assignments:
             chosenLang = lang
     else:
         chosenLang = "English"
-    matchings.append([frRow[fnQ],
-                      frRow[lnQ],
-                      frRow[emQ],
-                      exRow[fnQ],
-                      exRow[lnQ],
-                      exRow[emQ],
-                      chosenLang])
+    d = {"frFName": frRow[fnQ],
+         "frLName": frRow[lnQ],
+         "frEMail": frRow[emQ],
+         "exFName": exRow[fnQ],
+         "exLName": exRow[lnQ],
+         "exEMail": exRow[emQ],
+         "language": chosenLang}
+    matchings = matchings.append(d, ignore_index=True)
 
 matchings.to_csv("./output/matchings.csv")
