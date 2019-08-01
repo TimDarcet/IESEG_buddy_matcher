@@ -10,6 +10,10 @@ A munkres solver for the IESEG french-international students assignment problem.
 The csv files are to be placed in ./data.
 """
 
+def compatPercentage(n):
+    if n >= 500:
+        n -= 500
+    return '{:2.2f}%'.format(100 * (1 - n / 30))
 
 def n_inv(r1, r2):
     """ Calculates the Kendall-tau distance between two rankings,
@@ -208,4 +212,4 @@ for fridx, exidx in assignments:
     print(frAnswers['Q1'][fridx], frAnswers['Q2'][fridx],
           '<3',
           exAnswers['Q1'][exidx], exAnswers['Q2'][exidx],
-          costMatrix[fridx][exidx])
+          compatPercentage(costMatrix[fridx][exidx]))
