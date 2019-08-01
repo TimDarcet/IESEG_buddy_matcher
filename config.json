@@ -1,0 +1,136 @@
+{
+    "Q8": {
+        "type": "transform_diff",
+        "coef": 2,
+        "QLabel":"Q8",
+        "transform":{
+            "Once a month" : 1,
+            "Twice a month" : 2,
+            "Once a week" : 4,
+            "Twice a week or more" : 9
+        }
+    },
+    "Q9": {
+        "type": "rank",
+        "coef": 1,
+        "QLabel":"Q9",
+        "nAnswers":3
+    },
+    "shareFavLang": {
+        "type": "share_fav_lang",
+        "coef": 5,
+        "fluentQ":"Q10",
+        "learningQ":"Q11",
+        "favQ":"Q12",
+        "favTable":{
+            "A language you are fluent in": 0,
+            "A language you are learning": 1
+        }
+    },
+    "semiFavLang": {
+        "type": "semi_fav_lang",
+        "coef": 5,
+        "fluentQ":"Q10",
+        "learningQ":"Q11",
+        "favQ":"Q12",
+        "favTable":{
+            "A language you are fluent in": 0,
+            "A language you are learning": 1
+        }
+    },
+    "sharedLang": {
+        "type": "shared_lang",
+        "coef": 1000,
+        "fluentQ":"Q10",
+        "learningQ":"Q11"
+    },
+    "formerUni": {
+        "type": "has_intersection",
+        "coef": 3,
+        "frQ":"Q14",
+        "exQ":"Q26",
+        "singleFr":true,
+        "singleEx":true,
+        "condition":{
+            "type": "and",
+            "condition1":{
+                "type":"equals",
+                "QLabel":"Q13",
+                "who":"fr",
+                "value":"Yes"
+            },
+            "condition2":{
+                "type":"equals",
+                "QLabel":"Q15",
+                "who":"fr",
+                "value":"Yes"
+            }
+        }
+    },
+    "futureUni": {
+        "type": "has_intersection",
+        "coef": 3,
+        "frQ":"Q17",
+        "exQ":"Q26",
+        "singleFr":true,
+        "singleEx":true,
+        "condition":{
+            "type": "and",
+            "condition1":{
+                "type":"equals",
+                "QLabel":"Q16",
+                "who":"fr",
+                "value":"Yes"
+            },
+            "condition2":{
+                "type":"equals",
+                "QLabel":"Q18",
+                "who":"fr",
+                "value":"Yes"
+            }
+        }
+    },
+    "interestedInCulture": {
+        "type": "has_intersection",
+        "coef": 3,
+        "frQ":"Q19",
+        "exQ":"Q19",
+        "singleFr":false,
+        "singleEx":true
+    },
+    "Q20": {
+        "type": "rank",
+        "coef": 4,
+        "QLabel":"Q20",
+        "nAnswers":4
+    },
+    "Q21": {
+        "type": "inter_over_union",
+        "coef": 1,
+        "QLabel":"Q21"
+    },
+    "Q22": {
+        "type": "has_intersection",
+        "coef": 1,
+        "frQ":"Q22",
+        "exQ":"Q22"
+    },
+    "Q23": {
+        "type": "has_intersection",
+        "coef": 1,
+        "frQ":"Q23",
+        "exQ":"Q23"
+    },
+    "Q24": {
+        "type": "has_intersection",
+        "coef": 1,
+        "frQ":"Q24",
+        "exQ":"Q24"
+    },
+    "clone": {
+        "type": "bool",
+        "coef": 500,
+        "QLabel":"clone",
+        "who":"fr"
+    }
+}
