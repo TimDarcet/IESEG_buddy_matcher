@@ -11,7 +11,7 @@ sender_email = "club.inter@gmail.com"
 context = ssl.create_default_context()
 with smtplib.SMTP(smtp_server, port) as server:
     server.starttls(context=context)
-    server.login(input("Enter your gmail adress : "),
+    server.login(sender_email,
                  input("Enter your e-mail password : "))
     
     def send(body, dests):
@@ -23,5 +23,3 @@ with smtplib.SMTP(smtp_server, port) as server:
 
     for i, m in matches.iterrows():
         send(config["mails"][m["language"]].format(**m.to_dict()), ["timothee.darcet@gmail.com"])
-
-# cikvibjgnvyqukyh
