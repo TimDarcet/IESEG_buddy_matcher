@@ -142,7 +142,7 @@
         }
     },
     "mails": {
-        "English": "Hello {frFName} and {exFName}, you two are buddies \n\n-The IESEG international club",
-        "French": "Salut {frFName} et {exFName}, vous êtes buddies \n\n-Le club international de l'IESEG"
+        "English": "Subject: [International club] Buddy Program\n\nHello {frFName} and {exFName}, you two are buddies \n\n-The IESEG international club",
+        "French": "Subject: [Club international] Programme de buddy\n\nSalut {frFName} et {exFName}, vous êtes buddies \n\n-Le club international de l'IESEG"
     }
 }

@@ -54,8 +54,10 @@ def send_mails(port,
     with smtplib.SMTP(smtp_server, port) as server:
         server.starttls(context=context)
         if not pwd_file:
-            pwd_file = input("Enter your e-mail password : ")
-        server.login(sender_email, pwd_file)
+            pwd = input("Enter your e-mail password : ")
+        else:
+            pwd = pwd_file.read().strip()
+        server.login(sender_email, pwd)
 
         def send(body, dests):
             server.sendmail(sender_email, ';'.join(dests), unidecode(body))
@@ -67,6 +69,6 @@ def send_mails(port,
                       file=stderr)
             if not dry:
                 send(config["mails"][m["language"]].format(**m.to_dict()),
-                     [] + copy_to)
+                     [] + list(copy_to))
             # send(config["mails"][m["language"]].format(**m.to_dict()),
-            #      [m["exEMail"], m["frEMail"]] + copy_to)
+            #      [m["exEMail"], m["frEMail"]] + list(copy_to))

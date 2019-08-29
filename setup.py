@@ -9,6 +9,7 @@ setup(
         'sklearn',
         'munkres',
         'pandas',
+        'unidecode',
     ],
     entry_points='''
         [console_scripts]
