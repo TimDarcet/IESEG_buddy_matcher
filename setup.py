@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='IESEG_inter_matcher',
-    version='0.5',
+    version='1.0',
     py_modules=['munkresJu', "sendMails"],
     install_requires=[
         'Click',
