@@ -10,13 +10,13 @@ import click
               type=int,
               default=587,
               help="SMTP port to use")
-@click.option("--server", '-s',
+@click.option("--smtp-server", '-s',
               type=str,
               default="smtp.gmail.com",
               help="SMTP server to use")
 @click.option("--sender-email", '-e',
               type=str,
-              default="club.inter@gmail.com",
+              default="international.club.ieseg@gmail.com",
               help="email adress to use")
 @click.option("--copy-to", '-c',
               type=str,
@@ -34,7 +34,7 @@ import click
               type=click.File(),
               help="File containing the SMTP password. \
                     If not provided, will prompt for password")
-def sendMails(port, smtp_server, sender_email, copy_to, matches_file, config_file, pwd_file):
+def send_mails(port, smtp_server, sender_email, copy_to, matches_file, config_file, pwd_file):
     context = ssl.create_default_context()
     with smtplib.SMTP(smtp_server, port) as server:
         server.starttls(context=context)
