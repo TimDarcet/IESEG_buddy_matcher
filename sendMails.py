@@ -3,6 +3,7 @@ import pandas as pd
 import smtplib, ssl
 from unidecode import unidecode
 import click
+from sys import stderr
 
 
 @click.command()
@@ -34,7 +35,21 @@ import click
               type=click.File(),
               help="File containing the SMTP password. \
                     If not provided, will prompt for password")
-def send_mails(port, smtp_server, sender_email, copy_to, matches_file, config_file, pwd_file):
+@click.option("--dry", '-d',
+              is_flag=True,
+              help="Do not actually send emails")
+@click.option("--verbose", '-v',
+              count=True,
+              help="Show more info in stderror")
+def send_mails(port,
+               smtp_server,
+               sender_email,
+               copy_to,
+               matches_file,
+               config_file,
+               pwd_file,
+               dry,
+               verbose):
     context = ssl.create_default_context()
     with smtplib.SMTP(smtp_server, port) as server:
         server.starttls(context=context)
@@ -47,5 +62,11 @@ def send_mails(port, smtp_server, sender_email, copy_to, matches_file, config_fi
         matches = pd.read_csv(matches_file)
         config = json.load(config_file)
         for i, m in matches.iterrows():
-            send(config["mails"][m["language"]].format(**m.to_dict()), [] + copy_to)
-            # send(config["mails"][m["language"]].format(**m.to_dict()), [m["exEMail", m["frEMail"]] + copy_to)
+            if verbose > 0:
+                print("Sending to ", m["exEMail"], "and", m["frEMail"],
+                      file=stderr)
+            if not dry:
+                send(config["mails"][m["language"]].format(**m.to_dict()),
+                     [] + copy_to)
+            # send(config["mails"][m["language"]].format(**m.to_dict()),
+            #      [m["exEMail"], m["frEMail"]] + copy_to)

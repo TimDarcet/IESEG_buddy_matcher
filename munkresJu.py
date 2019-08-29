@@ -276,6 +276,7 @@ def match(conf_file, french_ans, exchange_ans, remaining_fr, remaining_ex, match
         fnQ, lnQ, emQ = config["firstNameQ"], config["lastNameQ"], config["eMailQ"]
         frRow = frAnswers.iloc[fridx]
         exRow = exAnswers.iloc[exidx]
+        # TODO:
         commonLangs = set(frRow[fQ].split(',')).intersection(set(exRow[fQ].split(',')))
         for lang in config["mails"]:
             if lang in commonLangs:
@@ -288,7 +289,8 @@ def match(conf_file, french_ans, exchange_ans, remaining_fr, remaining_ex, match
             "exFName": exRow[fnQ],
             "exLName": exRow[lnQ],
             "exEMail": exRow[emQ],
-            "language": chosenLang}
+            "language": chosenLang,
+            "compatibility": compatPercentage(costMatrix[fridx][exidx])}
         matchings = matchings.append(d, ignore_index=True)
 
     matchings.to_csv("./output/matchings.csv")

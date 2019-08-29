@@ -20,8 +20,8 @@
         "Q9": {
             "type": "rank",
             "coef": 1,
-            "QLabel":"Q9",
-            "nAnswers":3
+            "QLabel": "Q9",
+            "nAnswers": 3
         },
         "shareFavLang": {
             "type": "share_fav_lang",
