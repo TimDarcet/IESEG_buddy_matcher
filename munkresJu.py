@@ -225,6 +225,9 @@ def prepare(answers, doClone=False, cloneLabel=None):
               count=True,
               help="Show more info in stderror")
 def match(conf_file, french_ans, exchange_ans, remaining_fr, remaining_ex, matchings_file, verbose):
+    """Creates an optimal matching between french students and exchange students,\
+    using criterias defined in the config file"""
+    
     config = json.load(conf_file)
     criterias = config['criterias']
 
