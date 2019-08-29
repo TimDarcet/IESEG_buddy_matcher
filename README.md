@@ -101,7 +101,8 @@ These are under "`mails`". For one template, the label should be the language na
 | language      | A language they have in common     |
 | compatibility | A compatibility percentage         |
 
-`\n` characters can be used as line breaks, and the 
+`\n` characters can be used as line breaks, and the subject line can be used to define a subject.
+
 
 ## Support
 
