@@ -34,6 +34,8 @@ and
 send_mails --help
 ```
 
+The default input files are `./data/french.csv` and `./data/exchange.csv`
+
 ### Configuration
 
 A config file (by default, `./config.json`) is provided to the program. It contains three types of information:
