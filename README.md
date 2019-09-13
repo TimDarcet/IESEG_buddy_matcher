@@ -34,7 +34,8 @@ and
 send_mails --help
 ```
 
-The default input files are `./data/french.csv` and `./data/exchange.csv`
+The default input files are `./data/french.csv` and `./data/exchange.csv`.
+The program is meant to work with the human-readable versions of the input csv (not the fully numeric ones).
 
 ### Configuration
 
