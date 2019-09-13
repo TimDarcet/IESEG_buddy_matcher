@@ -8,6 +8,7 @@ The matching is done using a hungarian algorithm provided by the PyPI package `m
 
 ```bash
 git clone https://github.com/TimDarcet/IESEG_buddy_matcher.git
+cd IESEG_buddy_matcher
 pip install -e .
 ```
 
