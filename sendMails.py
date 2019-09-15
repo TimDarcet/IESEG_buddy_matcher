@@ -4,6 +4,7 @@ import smtplib, ssl
 from unidecode import unidecode
 import click
 from sys import stderr
+from time import sleep
 
 
 @click.command()
@@ -60,10 +61,12 @@ def send_mails(port,
         server.login(sender_email, pwd)
 
         def send(body, dests):
-            server.sendmail(sender_email, ';'.join(dests), unidecode(body))
+            fullBody = "To:" + ','.join(dests) + '\n' + body
+            server.sendmail(sender_email, dests, unidecode(fullBody))
         matches = pd.read_csv(matches_file)
         config = json.load(config_file)
         for i, m in matches.iterrows():
+            sleep(1)
             if verbose > 0:
                 print("Sending to ", m["exEMail"], "and", m["frEMail"],
                       file=stderr)
