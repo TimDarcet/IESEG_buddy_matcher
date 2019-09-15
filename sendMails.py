@@ -69,6 +69,4 @@ def send_mails(port,
                       file=stderr)
             if not dry:
                 send(config["mails"][m["language"]].format(**m.to_dict()),
-                     [] + list(copy_to))
-            # send(config["mails"][m["language"]].format(**m.to_dict()),
-            #      [m["exEMail"], m["frEMail"]] + list(copy_to))
+                     [m["exEMail"], m["frEMail"]] + list(copy_to))
