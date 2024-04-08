@@ -6,7 +6,7 @@ setup(
     py_modules=['munkresJu', "sendMails"],
     install_requires=[
         'Click',
-        'sklearn',
+        'scikit-learn',
         'munkres',
         'pandas',
         'unidecode',
